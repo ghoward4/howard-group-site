@@ -61,15 +61,24 @@ background:var(--brand);color:#fff;text-decoration:none;white-space:nowrap}
 radial-gradient(1100px 520px at 50% -10%,rgba(44,149,56,.42),transparent 60%),
 linear-gradient(180deg,var(--deep-2),var(--deep));
 color:#f2f7f3;padding:76px 0 68px;position:relative;overflow:hidden}
+.hero.shot{background:var(--deep)}
+.hero.shot .bgimg{position:absolute;inset:0;background-size:cover;background-position:center;
+z-index:0}
+.hero.shot:before{content:"";position:absolute;inset:0;z-index:1;
+background:linear-gradient(180deg,rgba(6,15,10,.55) 0%,rgba(6,15,10,.78) 48%,
+rgba(6,15,10,.94) 82%,var(--deep) 100%)}
+.hero.shot h1,.hero.shot p.lede{text-shadow:0 2px 18px rgba(0,0,0,.55)}
+.hero.shot .band .cell{background:rgba(6,15,10,.62)}
 .hero:after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.10;
 background-image:linear-gradient(rgba(255,255,255,.55) 1px,transparent 1px),
 linear-gradient(90deg,rgba(255,255,255,.55) 1px,transparent 1px);
 background-size:76px 76px;mask-image:radial-gradient(70% 60% at 50% 30%,#000,transparent 75%)}
-.hero>*{position:relative;z-index:1}
+.hero.shot:after{opacity:.05}
+.hero>.wrap{position:relative;z-index:2}
 .hero img.mark{height:82px;width:auto;margin-bottom:26px}
 .hero h1{font:600 clamp(34px,6vw,60px)/1.06 var(--display);letter-spacing:-.02em;margin:0 0 14px}
 .hero h1 em{font-style:normal;color:#7fe08e}
-.hero p.lede{color:#b9cfc1;max-width:640px;margin:0 auto;font-size:17px}
+.hero p.lede{color:#cfe0d5;max-width:640px;margin:0 auto;font-size:17px}
 .hero .cta{margin-top:30px}
 
 /* ---- buttons ---- */
@@ -115,6 +124,14 @@ padding:26px 16px 22px;position:relative}
 .listing .plate:after{content:"";position:absolute;inset:0;opacity:.14;
 background-image:linear-gradient(rgba(255,255,255,.5) 1px,transparent 1px),
 linear-gradient(90deg,rgba(255,255,255,.5) 1px,transparent 1px);background-size:34px 34px}
+.listing .shot{position:relative;aspect-ratio:3/2;background:var(--deep-2) center/cover}
+.listing .shot:after{content:"";position:absolute;inset:0;
+background:linear-gradient(180deg,transparent 40%,rgba(9,20,13,.82) 100%)}
+.listing .shot .over{position:absolute;left:0;right:0;bottom:0;z-index:1;padding:14px 12px;
+color:#fff}
+.listing .shot .price{font:600 27px/1 var(--display);letter-spacing:-.02em;
+text-shadow:0 1px 10px rgba(0,0,0,.5)}
+.listing .shot .pill{margin-top:9px}
 .listing .price{font:600 31px/1 var(--display);letter-spacing:-.02em;position:relative;z-index:1}
 .pill{display:inline-block;margin-top:14px;padding:5px 12px;border-radius:999px;
 font:600 11px/1 var(--display);letter-spacing:.13em;text-transform:uppercase;position:relative;
@@ -122,6 +139,8 @@ z-index:1;background:var(--brand);color:#fff}
 .pill.soon{background:#c99a19}
 .pill.pend{background:#5b6b7d}
 .listing .body{padding:18px 16px 20px;flex:1}
+.listing .strip{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:auto}
+.listing .strip i{display:block;aspect-ratio:1/1;background:var(--soft) center/cover}
 .listing .addr{font:500 16px/1.35 var(--display);margin:0 0 4px}
 .listing .city{font-size:13px;color:var(--mut)}
 
@@ -188,10 +207,10 @@ footer .fine{font-size:12.5px;color:#7d968a;max-width:700px;margin:0 auto}
 <section><div class="wrap">
 <h1>On the market</h1>
 <p class="sub">Every home The Howard Group has listed right now, in Clark and Floyd Counties, Southern Indiana.</p>
-<div class="grid"><div class="listing"><div class="plate"><div class="price">$170,000</div><span class="pill">For sale</span></div><div class="body"><p class="addr">244 West Winbourne Avenue</p><p class="city">Clarksville, IN 47129</p></div></div><div class="listing"><div class="plate"><div class="price">$175,000</div><span class="pill">For sale</span></div><div class="body"><p class="addr">326 Level Street</p><p class="city">Charlestown, IN 47111</p></div></div><div class="listing"><div class="plate"><div class="price">$305,000</div><span class="pill">For sale</span></div><div class="body"><p class="addr">9093 Hwy 64</p></div></div><div class="listing"><div class="plate"><div class="price">$400,000</div><span class="pill soon">Coming soon</span></div><div class="body"><p class="addr">6205 Kamer Court</p><p class="city">Charlestown, IN 47111</p></div></div></div>
-<h2 style="margin-top:46px">Under contract</h2><div class="grid"><div class="listing"><div class="plate"><div class="price">$249,900</div><span class="pill pend">Under contract</span></div><div class="body"><p class="addr">218 Savannah Nicole Rd</p><p class="city">Jeffersonville, IN 47130</p></div></div><div class="listing"><div class="plate"><div class="price">$175,000</div><span class="pill pend">Under contract</span></div><div class="body"><p class="addr">932 Monroe St</p><p class="city">Charlestown, IN 47111</p></div></div></div>
+<div class="grid"><div class="listing"><div class="shot" style="background-image:url(/img/listings/244-west-winbourne-avenue/244-west-winbourne-avenue-01.jpg)" role="img" aria-label="244 West Winbourne Avenue — for sale"><div class="over"><div class="price">$170,000</div><span class="pill">For sale</span></div></div><div class="body"><p class="addr">244 West Winbourne Avenue</p><p class="city">Clarksville, IN 47129</p></div><div class="strip"><i style="background-image:url(/img/listings/244-west-winbourne-avenue/244-west-winbourne-avenue-02.jpg)"></i><i style="background-image:url(/img/listings/244-west-winbourne-avenue/244-west-winbourne-avenue-03.jpg)"></i><i style="background-image:url(/img/listings/244-west-winbourne-avenue/244-west-winbourne-avenue-04.jpg)"></i><i style="background-image:url(/img/listings/244-west-winbourne-avenue/244-west-winbourne-avenue-05.jpg)"></i></div></div><div class="listing"><div class="shot" style="background-image:url(/img/listings/326-level-street/326-level-street-01.jpg)" role="img" aria-label="326 Level Street — for sale"><div class="over"><div class="price">$175,000</div><span class="pill">For sale</span></div></div><div class="body"><p class="addr">326 Level Street</p><p class="city">Charlestown, IN 47111</p></div><div class="strip"><i style="background-image:url(/img/listings/326-level-street/326-level-street-02.jpg)"></i><i style="background-image:url(/img/listings/326-level-street/326-level-street-03.jpg)"></i><i style="background-image:url(/img/listings/326-level-street/326-level-street-04.jpg)"></i><i style="background-image:url(/img/listings/326-level-street/326-level-street-05.jpg)"></i></div></div><div class="listing"><div class="shot" style="background-image:url(/img/listings/9093-hwy-64/9093-hwy-64-01.jpg)" role="img" aria-label="9093 Hwy 64 — for sale"><div class="over"><div class="price">$305,000</div><span class="pill">For sale</span></div></div><div class="body"><p class="addr">9093 Hwy 64</p></div><div class="strip"><i style="background-image:url(/img/listings/9093-hwy-64/9093-hwy-64-02.jpg)"></i><i style="background-image:url(/img/listings/9093-hwy-64/9093-hwy-64-03.jpg)"></i><i style="background-image:url(/img/listings/9093-hwy-64/9093-hwy-64-04.jpg)"></i><i style="background-image:url(/img/listings/9093-hwy-64/9093-hwy-64-05.jpg)"></i></div></div><div class="listing"><div class="shot" style="background-image:url(/img/listings/6205-kamer-court/6205-kamer-court-01.jpg)" role="img" aria-label="6205 Kamer Court — coming soon"><div class="over"><div class="price">$400,000</div><span class="pill soon">Coming soon</span></div></div><div class="body"><p class="addr">6205 Kamer Court</p><p class="city">Charlestown, IN 47111</p></div><div class="strip"><i style="background-image:url(/img/listings/6205-kamer-court/6205-kamer-court-02.jpg)"></i><i style="background-image:url(/img/listings/6205-kamer-court/6205-kamer-court-03.jpg)"></i><i style="background-image:url(/img/listings/6205-kamer-court/6205-kamer-court-04.jpg)"></i><i style="background-image:url(/img/listings/6205-kamer-court/6205-kamer-court-05.jpg)"></i></div></div></div>
+<h2 style="margin-top:46px">Under contract</h2><div class="grid"><div class="listing"><div class="shot" style="background-image:url(/img/listings/218-savannah-nicole-rd/218-savannah-nicole-rd-01.jpg)" role="img" aria-label="218 Savannah Nicole Rd — under contract"><div class="over"><div class="price">$249,900</div><span class="pill pend">Under contract</span></div></div><div class="body"><p class="addr">218 Savannah Nicole Rd</p><p class="city">Jeffersonville, IN 47130</p></div><div class="strip"><i style="background-image:url(/img/listings/218-savannah-nicole-rd/218-savannah-nicole-rd-02.jpg)"></i><i style="background-image:url(/img/listings/218-savannah-nicole-rd/218-savannah-nicole-rd-03.jpg)"></i><i style="background-image:url(/img/listings/218-savannah-nicole-rd/218-savannah-nicole-rd-04.jpg)"></i><i style="background-image:url(/img/listings/218-savannah-nicole-rd/218-savannah-nicole-rd-05.jpg)"></i></div></div><div class="listing"><div class="plate"><div class="price">$175,000</div><span class="pill pend">Under contract</span></div><div class="body"><p class="addr">932 Monroe St</p><p class="city">Charlestown, IN 47111</p></div></div></div>
 <p class="note">Indiana only. A Kentucky home is referred to a Kentucky-licensed broker.
-Listing photography is not published here yet — call for photos, room counts and a showing.</p>
+Call for room counts, the full photo set and a showing.</p>
 </div></section>
 
 </main>
@@ -209,6 +228,6 @@ it would net — not a pitch.</p>
  · <a href="mailto:grant@thghomes.com">grant@thghomes.com</a>
  · <a href="https://www.facebook.com/theHowardGroupRealEstate">Facebook</a></p>
 <div class="rule"></div>
-<p class="fine">Figures on this page are The Howard Group&#x27;s own closed transactions, including work completed under prior brokerages. Not MLS market statistics.</p>
+<p class="fine">Figures on this page are The Howard Group&#x27;s own closed transactions, including work completed under prior brokerages. Not MLS market statistics. Listing photography © Diamond Home Imaging.</p>
 </div></footer>
 </body></html>
