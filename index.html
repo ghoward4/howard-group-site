@@ -293,21 +293,23 @@ it would net — not a pitch.</p>
   f.addEventListener('submit',function(e){
     e.preventDefault();
     if(!f.reportValidity()) return;
-    var b=f.querySelector('button');
-    b.disabled=true; b.textContent='Sending\u2026';
     var d=new FormData(f); d.append('page',location.pathname);
-    // no-cors: the reply is opaque by design. The endpoint mails Grant on its own failure,
-    // so a lead is never lost quietly just because this page cannot read the response.
-    fetch(f.action,{method:'POST',mode:'no-cors',body:new URLSearchParams(d)})
-      .catch(function(){})
-      .then(function(){
-        var ok=document.createElement('div');
-        ok.className='hvdone';
-        ok.innerHTML='<strong>Got it \u2014 thank you.</strong><br>'+
-          'Grant will come back to you personally with what the house would list for '+
-          'and what it would net. If it is urgent, call 502.681.6282.';
-        f.parentNode.replaceChild(ok,f);
-      });
+    // no-cors: the reply is opaque by design, and measured 2026-09-29 the opaque promise can
+    // sit unresolved for well over 15s while the lead is ALREADY in Follow Up Boss. So the
+    // thank-you is shown immediately and the request runs on with keepalive, which survives
+    // the page being closed. The endpoint mails Grant if FUB rejects it, so nothing is lost
+    // quietly — waiting on a promise this page is not allowed to read would only cost the
+    // seller twenty seconds of staring at "Sending".
+    try {
+      fetch(f.action,{method:'POST',mode:'no-cors',keepalive:true,
+                      body:new URLSearchParams(d)}).catch(function(){});
+    } catch(err) {}
+    var ok=document.createElement('div');
+    ok.className='hvdone';
+    ok.innerHTML='<strong>Got it \u2014 thank you.</strong><br>'+
+      'Grant will come back to you personally with what the house would list for '+
+      'and what it would net. If it is urgent, call 502.681.6282.';
+    f.parentNode.replaceChild(ok,f);
   });
 })();
 </script>
