@@ -295,10 +295,19 @@ it would net — not a pitch.</p>
     // the page being closed. The endpoint mails Grant if FUB rejects it, so nothing is lost
     // quietly — waiting on a promise this page is not allowed to read would only cost the
     // seller twenty seconds of staring at "Sending".
-    try {
-      fetch(f.action,{method:'POST',mode:'no-cors',keepalive:true,
-                      body:new URLSearchParams(d)}).catch(function(){});
-    } catch(err) {}
+    // sendBeacon first: it is the one transport the browser promises to finish even if the
+    // page is closed a second later. Measured 2026-09-29 — a fetch(keepalive) fired and then
+    // killed after 1.5s delivered NOTHING to FUB, so keepalive alone is not a promise.
+    // URLSearchParams makes it x-www-form-urlencoded, which is CORS-safelisted (no preflight)
+    // and is what Apps Script reads as e.parameter.
+    var sent=false;
+    try { sent = !!(navigator.sendBeacon && navigator.sendBeacon(f.action, new URLSearchParams(d))); } catch(err) {}
+    if (!sent) {
+      try {
+        fetch(f.action,{method:'POST',mode:'no-cors',keepalive:true,
+                        body:new URLSearchParams(d)}).catch(function(){});
+      } catch(err2) {}
+    }
     var ok=document.createElement('div');
     ok.className='hvdone';
     ok.innerHTML='<strong>Got it \u2014 thank you.</strong><br>'+
