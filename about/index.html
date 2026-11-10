@@ -201,8 +201,8 @@ background:rgba(255,255,255,.12)}
 .hvform .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 .hvform .alt{margin-top:18px;font-size:14px;color:#b9cfc1}
 .hvform .alt a{color:#cfe3d6}
-.hvform .consent{display:block;margin:14px auto 0;font-size:12.5px;line-height:1.55;
-color:#b9cfc1;cursor:pointer;text-align:center}
+.hvform .consent{display:block;margin:14px auto 0;font-size:14px;line-height:1.55;
+color:#e8f1eb;cursor:pointer;text-align:center}
 .hvform .consent input{width:auto;margin:0 6px 0 0;padding:0;vertical-align:-2px;
 accent-color:var(--brand)}
 .hvform .consent a{color:#cfe3d6}
@@ -264,7 +264,7 @@ it would net — not a pitch.</p>
 <input name="city" placeholder="City" autocomplete="address-level2">
 </div>
 <textarea name="notes" rows="2" placeholder="Anything I should know? (optional)"></textarea>
-<label class="consent"><input type="checkbox" name="consent" value="yes">Yes, The Howard Group (Grant Howard, Lopp Real Estate Brokers) may call and text me at the number I provided about real estate services, including by automated technology and prerecorded or artificial voice. Consent is not a condition of any purchase or sale. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help.
+<label class="consent"><input type="checkbox" name="consent" value="yes">Yes, I ask The Howard Group (Grant Howard, Lopp Real Estate Brokers) to call and text me at the phone number I entered on this form about real estate services, including with an autodialer or other automated technology and artificial or prerecorded voice messages. By checking this box, I agree and sign electronically. Consent is not required, directly or indirectly, to buy or sell any property, goods, or services. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out (or tell us any other reasonable way), HELP for help.
 <a href="/privacy/">Privacy Policy</a></label>
 <input class="hp" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
 <button class="cta" type="submit">Send me my home value</button>
@@ -285,7 +285,8 @@ it would net — not a pitch.</p>
     var c=f.querySelector('input[name=consent]'), n=(d.get('notes')||'').trim();
     var rec=(c&&c.checked)
       ? 'Call/text consent: YES, box checked '+new Date().toISOString()+' on '+
-        location.pathname+'. Wording: "'+"Yes, The Howard Group (Grant Howard, Lopp Real Estate Brokers) may call and text me at the number I provided about real estate services, including by automated technology and prerecorded or artificial voice. Consent is not a condition of any purchase or sale. Message frequency varies. Msg & data rates may apply. Reply STOP to opt out, HELP for help."+'"'
+        location.pathname+' for phone '+(d.get('phone')||'(none entered)')+
+        '. Wording: "'+"Yes, I ask The Howard Group (Grant Howard, Lopp Real Estate Brokers) to call and text me at the phone number I entered on this form about real estate services, including with an autodialer or other automated technology and artificial or prerecorded voice messages. By checking this box, I agree and sign electronically. Consent is not required, directly or indirectly, to buy or sell any property, goods, or services. Message frequency varies. Msg & data rates may apply. Reply STOP to opt out (or tell us any other reasonable way), HELP for help."+'"'
       : 'Call/text consent: NO, box left unchecked.';
     d.set('notes', n ? n+'\n'+rec : rec);
     // no-cors: the reply is opaque by design, and measured 2026-09-29 the opaque promise can
