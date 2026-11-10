@@ -201,6 +201,11 @@ background:rgba(255,255,255,.12)}
 .hvform .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 .hvform .alt{margin-top:18px;font-size:14px;color:#b9cfc1}
 .hvform .alt a{color:#cfe3d6}
+.hvform .consent{display:block;margin:14px auto 0;font-size:12.5px;line-height:1.55;
+color:#b9cfc1;cursor:pointer;text-align:center}
+.hvform .consent input{width:auto;margin:0 6px 0 0;padding:0;vertical-align:-2px;
+accent-color:var(--brand)}
+.hvform .consent a{color:#cfe3d6}
 .hvdone{max-width:620px;margin:26px auto 0;text-align:center;color:#f2f7f3;font-size:17px}
 
 /* ---- footer ---- */
@@ -262,6 +267,8 @@ it would net — not a pitch.</p>
 <input name="city" placeholder="City" autocomplete="address-level2">
 </div>
 <textarea name="notes" rows="2" placeholder="Anything I should know? (optional)"></textarea>
+<label class="consent"><input type="checkbox" name="consent" value="yes">Yes, The Howard Group (Grant Howard, Lopp Real Estate Brokers) may call and text me at the number I provided about real estate services, including by automated technology and prerecorded or artificial voice. Consent is not a condition of any purchase or sale. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help.
+<a href="/privacy/">Privacy Policy</a></label>
 <input class="hp" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
 <button class="cta" type="submit">Send me my home value</button>
 <p class="alt">Or call <a href="tel:5022735673">502.273.5673</a>
@@ -276,6 +283,14 @@ it would net — not a pitch.</p>
     e.preventDefault();
     if(!f.reportValidity()) return;
     var d=new FormData(f); d.append('page',location.pathname);
+    // TCPA proof rides in the notes, which the endpoint already writes to the FUB event, so
+    // the Apps Script needed no redeploy. YES carries the time, page and the exact wording.
+    var c=f.querySelector('input[name=consent]'), n=(d.get('notes')||'').trim();
+    var rec=(c&&c.checked)
+      ? 'Call/text consent: YES, box checked '+new Date().toISOString()+' on '+
+        location.pathname+'. Wording: "'+"Yes, The Howard Group (Grant Howard, Lopp Real Estate Brokers) may call and text me at the number I provided about real estate services, including by automated technology and prerecorded or artificial voice. Consent is not a condition of any purchase or sale. Message frequency varies. Msg & data rates may apply. Reply STOP to opt out, HELP for help."+'"'
+      : 'Call/text consent: NO, box left unchecked.';
+    d.set('notes', n ? n+'\n'+rec : rec);
     // no-cors: the reply is opaque by design, and measured 2026-09-29 the opaque promise can
     // sit unresolved for well over 15s while the lead is ALREADY in Follow Up Boss. So the
     // thank-you is shown immediately and the request runs on with keepalive, which survives
@@ -309,7 +324,7 @@ it would net — not a pitch.</p>
 <p>Grant Howard, licensed Indiana real estate broker (#RB14049280) — Lopp Real Estate Brokers.</p>
 <p>Clark, Floyd, Scott, Jefferson, Harrison and Washington Counties, Southern Indiana · <a href="tel:5022735673">502.273.5673</a>
  · <a href="mailto:grant@thghomes.com">grant@thghomes.com</a>
- · <a href="https://www.facebook.com/theHowardGroupRealEstate">Facebook</a></p>
+ · <a href="https://www.facebook.com/theHowardGroupRealEstate">Facebook</a> · <a href="/privacy/">Privacy</a></p>
 <div class="rule"></div>
 <p class="fine">Figures on this page are The Howard Group&#x27;s own closed transactions, including work completed under prior brokerages. Not MLS market statistics.</p>
 </div></footer>
